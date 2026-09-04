@@ -8,5 +8,7 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["tests/**/*.test.ts"],
+    // Test emulator chạy riêng bằng `npm run test:emulator` (cần Java).
+    exclude: ["tests/emulator/**", "node_modules/**"],
   },
 });

@@ -7,3 +7,10 @@ build
 npm-debug.log*
 .env*
 next-env.d.ts
+
+# Firebase emulator
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+.firebase/
+firestore-data/

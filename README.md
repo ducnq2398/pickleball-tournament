@@ -167,6 +167,23 @@ với role `REFEREE`** (rules không cho tự phong ADMIN).
 
 3. Đăng nhập tại `/login` → vào `/admin`.
 
+### Cách nhanh hơn (ít gõ tay, ít sai UID)
+
+1. Bật Email/Password + tạo user như trên.
+2. Deploy rules.
+3. Đăng nhập vào `/login` một lần → app **tự tạo** `users/{uid}` với `role: "REFEREE"`.
+4. Firestore → `users` → document vừa hiện ra → sửa `role` thành `ADMIN`.
+
+### Kiểm tra đã đúng chưa
+
+```bash
+npm run check:role -- btc@example.com 'mật-khẩu'
+```
+
+Script chỉ đọc, in ra UID + vai trò hiện tại, và chỉ đúng chỗ sai nếu có
+(chưa bật Authentication / chưa deploy rules / Document ID không trùng UID —
+lỗi này im lặng nên rất hay mất thời gian).
+
 ### Thêm trọng tài
 
 - Cách 1: **Authentication → Add user**, đưa email/mật khẩu cho trọng tài.
@@ -215,8 +232,11 @@ trước khi ghi dữ liệu).
 npm run dev          # http://localhost:3000
 npm run build        # build production
 npm run start        # chạy bản build
-npm test             # chạy unit test (Vitest)
-npm run test:watch   # test chế độ watch
+npm test             # unit test (Vitest)
+npm run test:watch   # unit test chế độ watch
+npm run test:emulator  # test tích hợp trên Firestore Emulator (cần Java)
+npm run test:all       # chạy cả hai
+npm run check:role -- <email> <mật-khẩu>   # kiểm tra vai trò của một tài khoản
 ```
 
 Test trên điện thoại cùng mạng LAN:
@@ -341,6 +361,8 @@ nhưng ứng dụng **không nói "đã lưu"** cho tới khi server xác nhận
 
 ## 13. Kiểm thử
 
+### Unit test (nhanh, không cần gì thêm)
+
 ```bash
 npm test
 ```
@@ -355,6 +377,23 @@ npm test
 | `tests/knockout.test.ts` | Bracket 4/8/16 đội, cặp Nhất A–Nhì B, tự điền đội, phát hiện xung đột khi sửa kết quả |
 | `tests/validation.test.ts` | Khoá sân, một đội không đá 2 trận, xoá đội, mở lại trận |
 | `tests/tournament-flow.test.ts` | **Kịch bản 21 bước**: 9 đội → 16 trận → BXH → knockout → nhà vô địch |
+
+### Test tích hợp trên Firestore Emulator (cần Java)
+
+```bash
+npm run test:emulator     # tự bật/tắt emulator
+npm run test:all          # unit + emulator
+```
+
+33 test chạy trên Firestore thật (emulator), dùng đúng các hàm mà app dùng:
+
+| File | Chứng minh điều gì |
+| --- | --- |
+| `tests/emulator/rules.test.ts` | Khán giả chỉ đọc; trọng tài đổi được điểm nhưng **không** mở lại trận, **không** sửa đội/bảng/thể thức, **không** tự phong ADMIN; admin toàn quyền |
+| `tests/emulator/scoring.test.ts` | **20 lần bấm +1 đồng thời = đúng 20 điểm**; 2 người bấm cùng lúc cho 2 đội đều được ghi; không bao giờ 2 trận LIVE một sân; kết thúc trận trả sân; sửa kết quả bán kết làm đặt lại chung kết và ghép đội mới |
+
+> Đây là bằng chứng cho hai lời hứa quan trọng nhất: **không mất điểm khi nhiều
+> thiết bị cùng nhập** và **rules chặn đúng người đúng việc**.
 
 ---
 
@@ -386,7 +425,9 @@ npm test
 
 | Hiện tượng | Nguyên nhân & cách xử lý |
 | --- | --- |
-| "Không có quyền truy cập dữ liệu" | Chưa deploy `firestore.rules`, hoặc tài khoản chưa có document `users/{uid}` |
+| "Không có quyền truy cập dữ liệu" | Chưa deploy `firestore.rules`, hoặc tài khoản chưa có document `users/{uid}` — chạy `npm run check:role` để biết chính xác |
+| Đăng nhập báo `auth/configuration-not-found` | Chưa bật **Authentication → Sign-in method → Email/Password** |
+| Đăng nhập được nhưng app báo "Tài khoản chưa được cấp quyền" | Document ID trong `users/` không trùng UID, hoặc `role` sai chính tả (phải đúng `ADMIN`/`REFEREE`, chữ hoa) |
 | Đăng nhập báo lỗi domain | Thêm domain vào **Authentication → Settings → Authorized domains** |
 | Trang trắng / "Chưa cấu hình Firebase" | Thiếu biến trong `.env.local`; sửa xong phải **khởi động lại** dev server |
 | Sân kẹt ở trạng thái "Đang dùng" | **Cài đặt → Sân → Giải phóng** (xảy ra khi mất mạng giữa chừng) |
