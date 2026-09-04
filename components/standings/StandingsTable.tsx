@@ -20,14 +20,14 @@ export function StandingsTable({
   highlightTeamId?: string;
 }) {
   if (rows.length === 0) {
-    return <p className="py-6 text-center text-sm text-ink-500">Bảng chưa có đội nào.</p>;
+    return <p className="py-6 text-center text-sm text-faint">Bảng chưa có đội nào.</p>;
   }
 
   return (
     <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
       <table className="w-full min-w-[34rem] border-collapse text-sm">
         <thead>
-          <tr className="text-left text-xs uppercase tracking-wide text-ink-400">
+          <tr className="text-left text-xs uppercase tracking-wide text-mute">
             <th className="w-10 pb-2 pl-2 font-medium">#</th>
             <th className="pb-2 font-medium">Đội</th>
             <th className="w-12 pb-2 text-center font-medium" title="Số trận đã đấu">
@@ -57,7 +57,7 @@ export function StandingsTable({
               <tr
                 key={row.teamId}
                 className={cn(
-                  "border-t border-ink-700/60",
+                  "border-t border-line/60",
                   qualified && "bg-brand-500/5",
                   highlightTeamId === row.teamId && "bg-info-500/10",
                 )}
@@ -66,7 +66,7 @@ export function StandingsTable({
                   <span
                     className={cn(
                       "tabular inline-flex h-6 w-6 items-center justify-center rounded-md text-xs font-bold",
-                      qualified ? "bg-brand-500 text-ink-950" : "bg-ink-700 text-ink-300",
+                      qualified ? "bg-brand-500 text-white" : "bg-fill text-body",
                     )}
                   >
                     {row.rank}
@@ -74,24 +74,24 @@ export function StandingsTable({
                 </td>
                 <td className="py-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="truncate font-semibold text-ink-100">{row.teamName}</span>
+                    <span className="truncate font-semibold text-strong">{row.teamName}</span>
                     {qualified && complete ? (
                       <Trophy className="h-3.5 w-3.5 shrink-0 text-brand-400" />
                     ) : null}
                   </div>
                   {row.tiebreakReason ? (
-                    <span className="text-xs text-ink-500">Phân định: {row.tiebreakReason}</span>
+                    <span className="text-xs text-faint">Phân định: {row.tiebreakReason}</span>
                   ) : null}
                 </td>
-                <td className="tabular py-2.5 text-center text-ink-300">{row.played}</td>
+                <td className="tabular py-2.5 text-center text-body">{row.played}</td>
                 <td className="tabular py-2.5 text-center font-semibold text-brand-400">{row.won}</td>
-                <td className="tabular py-2.5 text-center text-ink-400">{row.lost}</td>
-                <td className="tabular py-2.5 text-center text-ink-300">{row.scoreFor}</td>
-                <td className="tabular py-2.5 text-center text-ink-400">{row.scoreAgainst}</td>
+                <td className="tabular py-2.5 text-center text-mute">{row.lost}</td>
+                <td className="tabular py-2.5 text-center text-body">{row.scoreFor}</td>
+                <td className="tabular py-2.5 text-center text-mute">{row.scoreAgainst}</td>
                 <td
                   className={cn(
                     "tabular py-2.5 pr-2 text-center font-semibold",
-                    row.diff > 0 ? "text-brand-400" : row.diff < 0 ? "text-live-400" : "text-ink-300",
+                    row.diff > 0 ? "text-brand-400" : row.diff < 0 ? "text-live-400" : "text-body",
                   )}
                 >
                   {formatDiff(row.diff)}

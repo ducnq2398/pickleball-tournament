@@ -96,7 +96,7 @@ export default function RefereeCourtPage() {
                   Đổi sân
                 </Button>
               </Link>
-              <h1 className="text-lg font-bold text-ink-100">{courtState.court.name}</h1>
+              <h1 className="text-lg font-bold text-strong">{courtState.court.name}</h1>
             </div>
 
             {courtState.liveMatch ? (

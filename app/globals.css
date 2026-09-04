@@ -1,39 +1,61 @@
 @import "tailwindcss";
 
 /*
- * Hệ màu "Modern Sports Tournament": nền tối, chữ tương phản cao, điểm số nổi bật.
- * Nền tối vì màn hình chính chạy trên TV nhà thi đấu và tablet ngoài sân.
+ * BẢNG MÀU SÁNG — "Modern Sports Tournament".
+ *
+ * Token đặt theo NGỮ NGHĨA chứ không theo độ đậm nhạt, để đọc code là biết ngay
+ * đang dùng vào việc gì (và đổi tông sau này chỉ sửa đúng file này):
+ *
+ *   canvas   nền trang          surface  nền thẻ (card)
+ *   subtle   ô lõm bên trong    fill     nền badge / thanh tiến độ
+ *   line     đường viền         strong   chữ chính
+ *   body     chữ thường         mute     chữ phụ        faint  chữ mờ
+ *
+ * Các màu nhấn (brand/live/warn/info) đã chọn đủ đậm để đọc rõ trên nền trắng:
+ * cỡ -400 dùng cho CHỮ, cỡ -500 dùng cho NỀN nút và mảng màu.
  */
 @theme {
-  --color-ink-950: #060b16;
-  --color-ink-900: #0b1220;
-  --color-ink-850: #0f1728;
-  --color-ink-800: #131d33;
-  --color-ink-700: #1c2942;
-  --color-ink-600: #2a3a58;
-  --color-ink-500: #43567a;
-  --color-ink-400: #6c7f9f;
-  --color-ink-300: #9aabc6;
-  --color-ink-200: #c7d3e6;
-  --color-ink-100: #e8eefb;
+  /* Nền & bề mặt */
+  --color-canvas: #f1f4f9;
+  --color-surface: #ffffff;
+  --color-subtle: #f1f5f9;
+  --color-fill: #e2e8f0;
+  --color-fill-strong: #cbd5e1;
 
-  --color-brand-500: #22c55e;
-  --color-brand-400: #4ade80;
-  --color-brand-600: #16a34a;
+  /* Đường viền */
+  --color-line: #e4e9f0;
+  --color-line-strong: #cbd5e1;
 
-  --color-live-500: #ef4444;
-  --color-live-400: #f87171;
+  /* Chữ */
+  --color-strong: #0f172a;
+  --color-body: #334155;
+  --color-mute: #5a6b80;
+  --color-faint: #7b8797;
 
-  --color-warn-500: #f59e0b;
-  --color-warn-400: #fbbf24;
+  /* Xanh thương hiệu — nút chính, đội thắng, trạng thái hoàn thành */
+  --color-brand-400: #166534;
+  --color-brand-500: #15803d;
+  --color-brand-600: #14532d;
+  --color-brand-700: #052e16;
 
-  --color-info-500: #38bdf8;
-  --color-info-400: #7dd3fc;
+  /* Đỏ — trận đang diễn ra, hành động nguy hiểm */
+  --color-live-400: #b91c1c;
+  --color-live-500: #dc2626;
+  --color-live-600: #991b1b;
+
+  /* Vàng — cảnh báo, còn dang dở */
+  --color-warn-400: #854d0e;
+  --color-warn-500: #b45309;
+  --color-warn-600: #92400e;
+
+  /* Xanh dương — thông tin, số sân */
+  --color-info-400: #0369a1;
+  --color-info-500: #0284c7;
 
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
     "Noto Sans", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-mono: ui-mono, ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
 html,
@@ -42,8 +64,8 @@ body {
 }
 
 body {
-  background: var(--color-ink-900);
-  color: var(--color-ink-100);
+  background: var(--color-canvas);
+  color: var(--color-strong);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   /* Không cho kéo co giãn khi trọng tài bấm nhanh trên iOS */
@@ -61,10 +83,10 @@ button {
   font-variant-numeric: tabular-nums;
 }
 
-/* Thanh cuộn mảnh, hợp tông tối */
+/* Thanh cuộn mảnh, hợp tông sáng */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-ink-600) transparent;
+  scrollbar-color: var(--color-fill-strong) transparent;
 }
 
 @keyframes pulse-live {
@@ -73,7 +95,7 @@ button {
     opacity: 1;
   }
   50% {
-    opacity: 0.35;
+    opacity: 0.3;
   }
 }
 

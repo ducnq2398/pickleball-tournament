@@ -124,7 +124,7 @@ export function AdminMatchRow({ match }: { match: Match }) {
           <Button
             variant="ghost"
             size="sm"
-            className="border border-ink-700"
+            className="border border-line"
             onClick={() => setEditOpen(true)}
             icon={<PenLine className="h-3.5 w-3.5" />}
           >
@@ -146,7 +146,7 @@ export function AdminMatchRow({ match }: { match: Match }) {
         <Button
           variant="ghost"
           size="sm"
-          className="border border-ink-700 text-ink-400"
+          className="border border-line text-mute"
           onClick={() => setConfirmCancel(true)}
           icon={<Ban className="h-3.5 w-3.5" />}
         >
@@ -158,7 +158,7 @@ export function AdminMatchRow({ match }: { match: Match }) {
         <Button
           variant="ghost"
           size="sm"
-          className="border border-ink-700"
+          className="border border-line"
           onClick={() => void handleRestore()}
           icon={<RotateCcw className="h-3.5 w-3.5" />}
         >

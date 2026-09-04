@@ -18,7 +18,7 @@ export function TournamentSwitcher({ className }: { className?: string }) {
         Chọn giải
       </label>
       <div className="relative">
-        <Trophy className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
+        <Trophy className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-mute" />
         <Select
           id="tournament-switcher"
           className="h-9 py-0 pl-8 text-sm"

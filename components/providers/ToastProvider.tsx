@@ -77,16 +77,16 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               role="status"
               className={cn(
                 "pointer-events-auto flex w-full max-w-md items-start gap-3 rounded-xl border px-4 py-3 shadow-lg backdrop-blur",
-                "bg-ink-850/95",
+                "bg-surface",
                 STYLES[toast.kind],
               )}
             >
               <Icon className="mt-0.5 h-5 w-5 shrink-0" />
-              <p className="flex-1 text-sm leading-snug text-ink-100">{toast.message}</p>
+              <p className="flex-1 text-sm leading-snug text-strong">{toast.message}</p>
               <button
                 type="button"
                 onClick={() => dismiss(toast.id)}
-                className="rounded p-1 text-ink-400 hover:text-ink-100"
+                className="rounded p-1 text-mute hover:text-strong"
                 aria-label="Đóng thông báo"
               >
                 <X className="h-4 w-4" />

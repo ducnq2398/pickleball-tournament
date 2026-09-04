@@ -42,15 +42,15 @@ export default function KnockoutPage() {
         <div className="space-y-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h1 className="text-2xl font-bold text-ink-100">Nhánh knockout</h1>
-              <p className="mt-1 text-sm text-ink-400">
+              <h1 className="text-2xl font-bold text-strong">Nhánh knockout</h1>
+              <p className="mt-1 text-sm text-mute">
                 Chạm {tournament.config.knockoutTargetScore}
                 {tournament.config.winByTwo ? " · thắng cách biệt 2 điểm" : ""}
               </p>
             </div>
             {hasKnockout ? (
               <Link href="/standings">
-                <Button variant="ghost" className="border border-ink-700">
+                <Button variant="ghost" className="border border-line">
                   Xem bảng xếp hạng
                 </Button>
               </Link>
@@ -78,7 +78,7 @@ export default function KnockoutPage() {
                     ]}
                   />
                 ) : (
-                  <p className="text-sm text-ink-300">
+                  <p className="text-sm text-body">
                     Vòng bảng đã xong. Ban tổ chức có thể tạo nhánh knockout trong trang quản trị.
                   </p>
                 )}

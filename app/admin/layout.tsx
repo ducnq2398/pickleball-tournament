@@ -36,7 +36,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <AuthGate require="ADMIN">
         <div className="space-y-5">
           <nav className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
-            <div className="flex min-w-max gap-1 rounded-xl border border-ink-700/70 bg-ink-850 p-1">
+            <div className="flex min-w-max gap-1 rounded-xl border border-line/70 bg-surface p-1">
               {TABS.map((tab) => {
                 const active = tab.exact ? pathname === tab.href : pathname.startsWith(tab.href);
                 return (
@@ -46,8 +46,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     className={cn(
                       "flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                       active
-                        ? "bg-brand-500 text-ink-950"
-                        : "text-ink-300 hover:bg-ink-800 hover:text-ink-100",
+                        ? "bg-brand-500 text-white"
+                        : "text-body hover:bg-subtle hover:text-strong",
                     )}
                   >
                     <tab.icon className="h-4 w-4" />

@@ -39,13 +39,13 @@ export function CourtPanel({
   return (
     <section
       className={cn(
-        "flex flex-col rounded-3xl border bg-ink-850 p-5 sm:p-6",
-        match?.status === "LIVE" ? "border-live-500/60" : "border-ink-700",
+        "flex flex-col rounded-3xl border bg-surface p-5 sm:p-6",
+        match?.status === "LIVE" ? "border-live-500/60" : "border-line",
         className,
       )}
     >
       <header className="mb-4 flex items-center justify-between gap-3">
-        <h2 className="text-xl font-black uppercase tracking-wider text-ink-100 sm:text-2xl">
+        <h2 className="text-xl font-black uppercase tracking-wider text-strong sm:text-2xl">
           {court.name}
         </h2>
         {match ? (
@@ -63,12 +63,12 @@ export function CourtPanel({
       </header>
 
       {!match ? (
-        <div className="flex flex-1 items-center justify-center py-10 text-center text-ink-500">
+        <div className="flex flex-1 items-center justify-center py-10 text-center text-faint">
           Chưa có trận thi đấu
         </div>
       ) : (
         <>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-ink-400">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-mute">
             Trận #{match.code} · {stageLabel} · chạm {match.targetScore}
           </p>
           <div className="flex-1 space-y-2">
@@ -82,20 +82,20 @@ export function CourtPanel({
                   key={index}
                   className={cn(
                     "flex items-center justify-between gap-4 rounded-2xl px-4 py-3",
-                    isWinner ? "bg-brand-500/15" : "bg-ink-800/70",
+                    isWinner ? "bg-brand-500/15" : "bg-subtle/70",
                   )}
                 >
                   <div className="min-w-0">
                     <p
                       className={cn(
                         "truncate text-xl font-bold sm:text-2xl",
-                        isWinner ? "text-brand-400" : "text-ink-100",
+                        isWinner ? "text-brand-400" : "text-strong",
                       )}
                     >
                       {team?.name ?? "Chưa xác định"}
                     </p>
                     {team?.players.length ? (
-                      <p className="mt-0.5 truncate text-sm text-ink-400">
+                      <p className="mt-0.5 truncate text-sm text-mute">
                         {team.players.map((player) => player.name).join(" · ")}
                       </p>
                     ) : null}
@@ -107,7 +107,7 @@ export function CourtPanel({
                         ? "text-brand-400"
                         : isLeading
                           ? "text-live-400"
-                          : "text-ink-100",
+                          : "text-strong",
                     )}
                   >
                     {row.score}

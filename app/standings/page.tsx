@@ -37,8 +37,8 @@ export default function StandingsPage() {
       ) : (
         <div className="space-y-5">
           <div>
-            <h1 className="text-2xl font-bold text-ink-100">Bảng xếp hạng</h1>
-            <p className="mt-1 text-sm text-ink-400">
+            <h1 className="text-2xl font-bold text-strong">Bảng xếp hạng</h1>
+            <p className="mt-1 text-sm text-mute">
               Thứ tự ưu tiên: {rules.map((rule) => RANKING_RULE_LABELS[rule]).join(" → ")}
             </p>
           </div>
@@ -80,7 +80,7 @@ export default function StandingsPage() {
             />
             <CardBody className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {groupMatches.length === 0 ? (
-                <p className="col-span-full py-4 text-center text-sm text-ink-500">
+                <p className="col-span-full py-4 text-center text-sm text-faint">
                   Chưa sinh lịch thi đấu.
                 </p>
               ) : (

@@ -54,18 +54,18 @@ export default function ScoreboardPage() {
         <div className="space-y-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h1 className="text-2xl font-black uppercase tracking-tight text-ink-100 sm:text-4xl">
+              <h1 className="text-2xl font-black uppercase tracking-tight text-strong sm:text-4xl">
                 {tournament.name}
               </h1>
               {tournament.location ? (
-                <p className="mt-1 text-sm text-ink-400">{tournament.location}</p>
+                <p className="mt-1 text-sm text-mute">{tournament.location}</p>
               ) : null}
             </div>
             <Button
               variant="ghost"
               onClick={toggleFullscreen}
               icon={isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
-              className="border border-ink-700"
+              className="border border-line"
             >
               {isFullscreen ? "Thoát toàn màn hình" : "Toàn màn hình"}
             </Button>
@@ -99,14 +99,14 @@ export default function ScoreboardPage() {
               <CardHeader title="Kết quả gần nhất" />
               <CardBody className="space-y-2">
                 {recentResults.length === 0 ? (
-                  <p className="py-4 text-center text-sm text-ink-500">Chưa có trận nào kết thúc.</p>
+                  <p className="py-4 text-center text-sm text-faint">Chưa có trận nào kết thúc.</p>
                 ) : (
                   recentResults.map((match) => (
                     <div
                       key={match.id}
-                      className="flex items-center gap-3 rounded-xl bg-ink-800/50 px-3 py-2.5"
+                      className="flex items-center gap-3 rounded-xl bg-subtle/50 px-3 py-2.5"
                     >
-                      <span className="w-10 shrink-0 text-xs font-semibold text-ink-500">
+                      <span className="w-10 shrink-0 text-xs font-semibold text-faint">
                         #{match.code}
                       </span>
                       <TeamName
@@ -119,7 +119,7 @@ export default function ScoreboardPage() {
                           match.winnerId === match.team1Id && "text-brand-400",
                         )}
                       />
-                      <span className="tabular shrink-0 rounded-lg bg-ink-900 px-2.5 py-1 text-sm font-bold text-ink-100">
+                      <span className="tabular shrink-0 rounded-lg bg-canvas px-2.5 py-1 text-sm font-bold text-strong">
                         {match.score1} - {match.score2}
                       </span>
                       <TeamName
@@ -142,22 +142,22 @@ export default function ScoreboardPage() {
               <CardHeader title="Sắp thi đấu" />
               <CardBody className="space-y-2">
                 {upcoming.length === 0 ? (
-                  <p className="py-4 text-center text-sm text-ink-500">
+                  <p className="py-4 text-center text-sm text-faint">
                     Không còn trận nào trong lịch.
                   </p>
                 ) : (
                   upcoming.slice(0, 8).map((match) => (
                     <div
                       key={match.id}
-                      className="flex items-center gap-3 rounded-xl bg-ink-800/50 px-3 py-2.5 text-sm"
+                      className="flex items-center gap-3 rounded-xl bg-subtle/50 px-3 py-2.5 text-sm"
                     >
-                      <span className="w-10 shrink-0 text-xs font-semibold text-ink-500">
+                      <span className="w-10 shrink-0 text-xs font-semibold text-faint">
                         #{match.code}
                       </span>
                       <TeamName teamId={match.team1Id} match={match} slot={1} teams={teams} className="flex-1 truncate" />
-                      <span className="shrink-0 text-xs text-ink-500">vs</span>
+                      <span className="shrink-0 text-xs text-faint">vs</span>
                       <TeamName teamId={match.team2Id} match={match} slot={2} teams={teams} className="flex-1 truncate text-right" />
-                      <span className="hidden w-24 shrink-0 text-right text-xs text-ink-500 sm:block">
+                      <span className="hidden w-24 shrink-0 text-right text-xs text-faint sm:block">
                         {match.stage === "GROUP"
                           ? (groups.find((g) => g.id === match.groupId)?.name ?? "")
                           : STAGE_LABELS[match.stage]}

@@ -41,13 +41,13 @@ export function MatchCard({
   return (
     <div
       className={cn(
-        "rounded-xl border bg-ink-850 px-3 py-3 transition-colors sm:px-4",
-        isLive ? "border-live-500/50 bg-live-500/5" : "border-ink-700/70",
+        "rounded-xl border bg-surface px-3 py-3 transition-colors sm:px-4",
+        isLive ? "border-live-500/50 bg-live-500/5" : "border-line/70",
         className,
       )}
     >
-      <div className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-400">
-        <span className="font-semibold text-ink-300">#{match.code}</span>
+      <div className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-mute">
+        <span className="font-semibold text-body">#{match.code}</span>
         <span>·</span>
         <span>{match.stage === "GROUP" ? (group?.name ?? "Vòng bảng") : STAGE_LABELS[match.stage]}</span>
         {court ? (
@@ -90,8 +90,8 @@ export function MatchCard({
               <span
                 className={cn(
                   "tabular w-10 shrink-0 text-right text-xl font-bold",
-                  isLive ? "text-live-400" : isWinner ? "text-brand-400" : "text-ink-200",
-                  match.status === "SCHEDULED" && "text-ink-500",
+                  isLive ? "text-live-400" : isWinner ? "text-brand-400" : "text-body",
+                  match.status === "SCHEDULED" && "text-faint",
                 )}
               >
                 {row.score}

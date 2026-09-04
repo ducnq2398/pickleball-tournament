@@ -87,7 +87,7 @@ function LoginForm() {
           <Button type="submit" variant="primary" fullWidth loading={loading}>
             Đăng nhập
           </Button>
-          <p className="text-center text-xs text-ink-500">
+          <p className="text-center text-xs text-faint">
             Khán giả không cần đăng nhập để xem bảng điểm và bảng xếp hạng.
           </p>
         </form>

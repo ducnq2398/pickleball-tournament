@@ -123,10 +123,10 @@ export default function HomePage() {
                   <div className="mb-2 flex items-center gap-2">
                     <TournamentStatusBadge status={tournament.status} />
                   </div>
-                  <h1 className="text-2xl font-bold tracking-tight text-ink-100 sm:text-3xl">
+                  <h1 className="text-2xl font-bold tracking-tight text-strong sm:text-3xl">
                     {tournament.name}
                   </h1>
-                  <div className="mt-2 flex flex-wrap gap-4 text-sm text-ink-400">
+                  <div className="mt-2 flex flex-wrap gap-4 text-sm text-mute">
                     {tournament.date ? (
                       <span className="flex items-center gap-1.5">
                         <CalendarDays className="h-4 w-4" />
@@ -191,12 +191,12 @@ export default function HomePage() {
               <Link key={section.href} href={section.href} className="group">
                 <Card className="h-full transition-colors group-hover:border-brand-500/60">
                   <CardBody className="flex items-start gap-3">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-ink-800 text-brand-400">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-subtle text-brand-400">
                       <section.icon className="h-5 w-5" />
                     </span>
                     <span>
-                      <span className="block font-semibold text-ink-100">{section.title}</span>
-                      <span className="mt-0.5 block text-sm text-ink-400">{section.description}</span>
+                      <span className="block font-semibold text-strong">{section.title}</span>
+                      <span className="mt-0.5 block text-sm text-mute">{section.description}</span>
                     </span>
                   </CardBody>
                 </Card>

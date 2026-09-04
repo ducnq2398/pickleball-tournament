@@ -268,10 +268,10 @@ export default function AdminSettingsPage() {
           {rules.map((rule, index) => (
             <div
               key={rule}
-              className="flex items-center gap-2 rounded-lg border border-ink-700/70 bg-ink-800/50 px-3 py-2"
+              className="flex items-center gap-2 rounded-lg border border-line/70 bg-subtle/50 px-3 py-2"
             >
-              <span className="tabular w-6 text-sm font-bold text-ink-500">{index + 1}</span>
-              <span className="flex-1 text-sm font-medium text-ink-100">
+              <span className="tabular w-6 text-sm font-bold text-faint">{index + 1}</span>
+              <span className="flex-1 text-sm font-medium text-strong">
                 {RANKING_RULE_LABELS[rule]}
               </span>
               <Button
@@ -307,7 +307,7 @@ export default function AdminSettingsPage() {
           ))}
           <div className="flex flex-wrap gap-2 pt-1">
             {ALL_RULES.filter((rule) => !rules.includes(rule)).map((rule) => (
-              <Button key={rule} variant="ghost" size="sm" className="border border-ink-700" onClick={() => toggleRule(rule)}>
+              <Button key={rule} variant="ghost" size="sm" className="border border-line" onClick={() => toggleRule(rule)}>
                 + {RANKING_RULE_LABELS[rule]}
               </Button>
             ))}
@@ -321,7 +321,7 @@ export default function AdminSettingsPage() {
           {courts.map((court) => (
             <div
               key={court.id}
-              className="flex items-center gap-2 rounded-lg border border-ink-700/70 bg-ink-800/50 px-3 py-2"
+              className="flex items-center gap-2 rounded-lg border border-line/70 bg-subtle/50 px-3 py-2"
             >
               <Input
                 defaultValue={court.name}
@@ -340,7 +340,7 @@ export default function AdminSettingsPage() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="border border-ink-700 text-xs"
+                  className="border border-line text-xs"
                   onClick={() => void releaseCourt(tournament.id, court.id).catch(notifyError)}
                 >
                   Giải phóng
@@ -359,7 +359,7 @@ export default function AdminSettingsPage() {
         />
         <CardBody>
           {users.length === 0 ? (
-            <p className="py-3 text-sm text-ink-500">
+            <p className="py-3 text-sm text-faint">
               Chưa có người dùng nào. Người dùng xuất hiện ở đây sau lần đăng nhập đầu tiên.
             </p>
           ) : (
@@ -367,11 +367,11 @@ export default function AdminSettingsPage() {
               {users.map((user) => (
                 <li
                   key={user.id}
-                  className="flex flex-wrap items-center gap-2 rounded-lg border border-ink-700/70 bg-ink-800/50 px-3 py-2"
+                  className="flex flex-wrap items-center gap-2 rounded-lg border border-line/70 bg-subtle/50 px-3 py-2"
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold text-ink-100">{user.name}</p>
-                    <p className="truncate text-xs text-ink-400">{user.email ?? user.id}</p>
+                    <p className="truncate text-sm font-semibold text-strong">{user.name}</p>
+                    <p className="truncate text-xs text-mute">{user.email ?? user.id}</p>
                   </div>
                   <Select
                     aria-label={`Vai trò của ${user.name}`}
@@ -414,18 +414,18 @@ export default function AdminSettingsPage() {
         />
         <CardBody>
           {logs.length === 0 ? (
-            <p className="py-3 text-sm text-ink-500">Chưa có thao tác nào được ghi nhận.</p>
+            <p className="py-3 text-sm text-faint">Chưa có thao tác nào được ghi nhận.</p>
           ) : (
             <ul className="space-y-1.5">
               {logs.map((log) => (
-                <li key={log.id} className="flex gap-3 rounded-lg bg-ink-800/40 px-3 py-2 text-sm">
-                  <span className="tabular w-14 shrink-0 text-xs text-ink-500">
+                <li key={log.id} className="flex gap-3 rounded-lg bg-subtle/40 px-3 py-2 text-sm">
+                  <span className="tabular w-14 shrink-0 text-xs text-faint">
                     {log.createdAt ? formatTime(new Date(log.createdAt).toISOString()) : "—"}
                   </span>
-                  <span className="min-w-0 flex-1 truncate text-ink-200">
+                  <span className="min-w-0 flex-1 truncate text-body">
                     {log.message ?? log.action}
                   </span>
-                  <span className="shrink-0 text-xs text-ink-500">{log.userName ?? "Hệ thống"}</span>
+                  <span className="shrink-0 text-xs text-faint">{log.userName ?? "Hệ thống"}</span>
                 </li>
               ))}
             </ul>

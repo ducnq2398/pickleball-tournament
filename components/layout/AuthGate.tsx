@@ -35,7 +35,7 @@ export function AuthGate({
           }
         />
         <CardBody className="space-y-3">
-          <p className="text-sm text-ink-400">
+          <p className="text-sm text-mute">
             Khán giả xem bảng điểm, lịch thi đấu và bảng xếp hạng không cần đăng nhập.
           </p>
           <div className="flex flex-wrap gap-2">
@@ -59,11 +59,11 @@ export function AuthGate({
           title="Tài khoản chưa được cấp quyền"
           description="Ban tổ chức cần gán vai trò cho tài khoản này."
         />
-        <CardBody className="space-y-3 text-sm text-ink-400">
+        <CardBody className="space-y-3 text-sm text-mute">
           <p>
             Hãy báo BTC tạo hồ sơ trong mục Quản trị → Cài đặt, hoặc tạo document{" "}
-            <code className="rounded bg-ink-800 px-1.5 py-0.5 text-ink-200">users/&lt;uid&gt;</code>{" "}
-            trong Firestore với trường <code className="rounded bg-ink-800 px-1.5 py-0.5">role</code>.
+            <code className="rounded bg-subtle px-1.5 py-0.5 text-body">users/&lt;uid&gt;</code>{" "}
+            trong Firestore với trường <code className="rounded bg-subtle px-1.5 py-0.5">role</code>.
           </p>
           <Button variant="ghost" onClick={() => void signOut()}>
             Đăng xuất

@@ -8,12 +8,12 @@ type Variant = "primary" | "secondary" | "ghost" | "danger" | "warning" | "succe
 type Size = "sm" | "md" | "lg" | "xl";
 
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-brand-500 text-ink-950 hover:bg-brand-400 active:bg-brand-600",
-  secondary: "bg-ink-700 text-ink-100 hover:bg-ink-600 active:bg-ink-700",
-  ghost: "bg-transparent text-ink-200 hover:bg-ink-800 hover:text-ink-100",
-  danger: "bg-live-500 text-white hover:bg-live-400 active:bg-live-500",
-  warning: "bg-warn-500 text-ink-950 hover:bg-warn-400",
-  success: "bg-brand-600 text-white hover:bg-brand-500",
+  primary: "bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700",
+  secondary: "border border-line-strong bg-surface text-strong hover:bg-subtle active:bg-fill",
+  ghost: "bg-transparent text-body hover:bg-subtle hover:text-strong",
+  danger: "bg-live-500 text-white hover:bg-live-600 active:bg-live-600",
+  warning: "bg-warn-500 text-white hover:bg-warn-600",
+  success: "bg-brand-500 text-white hover:bg-brand-600",
 };
 
 const SIZES: Record<Size, string> = {

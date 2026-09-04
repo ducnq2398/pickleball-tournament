@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 type Tone = "neutral" | "live" | "success" | "warning" | "info";
 
 const TONES: Record<Tone, string> = {
-  neutral: "border-ink-600 bg-ink-800 text-ink-300",
+  neutral: "border-line-strong bg-subtle text-body",
   live: "border-live-500/50 bg-live-500/15 text-live-400",
   success: "border-brand-500/50 bg-brand-500/15 text-brand-400",
   warning: "border-warn-500/50 bg-warn-500/15 text-warn-400",

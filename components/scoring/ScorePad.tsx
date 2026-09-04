@@ -126,13 +126,13 @@ export function ScorePad({ match, court }: { match: Match; court?: Court }) {
       <OfflineBanner />
 
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2 text-sm text-ink-300">
-          <span className="font-bold text-ink-100">TRẬN #{match.code}</span>
-          <span className="text-ink-500">·</span>
+        <div className="flex items-center gap-2 text-sm text-body">
+          <span className="font-bold text-strong">TRẬN #{match.code}</span>
+          <span className="text-faint">·</span>
           <span>{stageLabel}</span>
           {court ? (
             <>
-              <span className="text-ink-500">·</span>
+              <span className="text-faint">·</span>
               <span className="font-semibold text-info-400">{court.name}</span>
             </>
           ) : null}
@@ -159,16 +159,16 @@ export function ScorePad({ match, court }: { match: Match; court?: Court }) {
                 "rounded-2xl border p-4",
                 isWinner
                   ? "border-brand-500/60 bg-brand-500/10"
-                  : "border-ink-700 bg-ink-850",
+                  : "border-line bg-surface",
               )}
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-lg font-bold text-ink-100">
+                  <p className="truncate text-lg font-bold text-strong">
                     {team?.name ?? "Chưa xác định"}
                   </p>
                   {team?.players.length ? (
-                    <p className="mt-0.5 truncate text-sm text-ink-400">
+                    <p className="mt-0.5 truncate text-sm text-mute">
                       {team.players.map((player) => player.name).join(" · ")}
                     </p>
                   ) : null}
@@ -176,7 +176,7 @@ export function ScorePad({ match, court }: { match: Match; court?: Court }) {
                 <p
                   className={cn(
                     "tabular shrink-0 text-6xl font-black leading-none sm:text-7xl",
-                    match.status === "LIVE" ? "text-live-400" : "text-ink-100",
+                    match.status === "LIVE" ? "text-live-400" : "text-strong",
                   )}
                 >
                   {score}
@@ -217,7 +217,7 @@ export function ScorePad({ match, court }: { match: Match; court?: Court }) {
           "rounded-xl px-4 py-2.5 text-center text-sm font-medium",
           outcome.isComplete
             ? "bg-brand-500/15 text-brand-400"
-            : "bg-ink-800 text-ink-300",
+            : "bg-subtle text-body",
         )}
       >
         {match.status === "FINISHED"
@@ -255,7 +255,7 @@ export function ScorePad({ match, court }: { match: Match; court?: Court }) {
             <Button
               size="xl"
               variant="ghost"
-              className="h-16 w-16 shrink-0 border border-ink-700"
+              className="h-16 w-16 shrink-0 border border-line"
               onClick={() => setManualOpen(true)}
               aria-label="Nhập tỷ số bằng tay"
             >

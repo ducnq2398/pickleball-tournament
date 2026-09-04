@@ -150,7 +150,7 @@ export default function AdminTeamsPage() {
           description={`${teams.length}/${tournament.config.numberOfTeams} đội · ${playersPerTeam} VĐV mỗi đội`}
           action={
             <>
-              <Button variant="ghost" size="sm" className="border border-ink-700" onClick={() => setBulkOpen(true)} icon={<Upload className="h-4 w-4" />}>
+              <Button variant="ghost" size="sm" className="border border-line" onClick={() => setBulkOpen(true)} icon={<Upload className="h-4 w-4" />}>
                 Nhập nhanh
               </Button>
               <Button variant="primary" size="sm" onClick={openCreate} icon={<Plus className="h-4 w-4" />}>
@@ -177,16 +177,16 @@ export default function AdminTeamsPage() {
                 return (
                   <li
                     key={team.id}
-                    className="flex items-start justify-between gap-3 rounded-xl border border-ink-700/70 bg-ink-800/40 px-3 py-3"
+                    className="flex items-start justify-between gap-3 rounded-xl border border-line/70 bg-subtle/40 px-3 py-3"
                   >
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="tabular text-xs font-bold text-ink-500">
+                        <span className="tabular text-xs font-bold text-faint">
                           {String(index + 1).padStart(2, "0")}
                         </span>
-                        <span className="truncate font-semibold text-ink-100">{team.name}</span>
+                        <span className="truncate font-semibold text-strong">{team.name}</span>
                       </div>
-                      <p className="mt-1 truncate text-sm text-ink-400">
+                      <p className="mt-1 truncate text-sm text-mute">
                         {team.players.length
                           ? team.players.map((player) => player.name).join(" · ")
                           : "Chưa có VĐV"}
@@ -198,7 +198,7 @@ export default function AdminTeamsPage() {
                           <Badge tone="warning">Chưa xếp bảng</Badge>
                         )}
                         {info.total > 0 ? (
-                          <span className="text-xs text-ink-500">
+                          <span className="text-xs text-faint">
                             {info.played}/{info.total} trận đã đấu
                           </span>
                         ) : null}
@@ -306,7 +306,7 @@ export default function AdminTeamsPage() {
           onChange={(event) => setBulkText(event.target.value)}
           rows={9}
           placeholder={"Sài Gòn Smash | Nguyễn Văn A, Trần Văn B\nHà Nội Dinker | Lê Văn C, Phạm Văn D"}
-          className="w-full rounded-lg border border-ink-600 bg-ink-900 px-3 py-2 font-mono text-sm text-ink-100 placeholder:text-ink-500 focus:border-brand-500 focus:outline-none"
+          className="w-full rounded-lg border border-line-strong bg-canvas px-3 py-2 font-mono text-sm text-strong placeholder:text-faint focus:border-brand-500 focus:outline-none"
         />
       </Modal>
 

@@ -63,7 +63,7 @@ export function OfflineBanner() {
         <p className="font-semibold">
           {online ? "Đang đồng bộ dữ liệu..." : "Mất kết nối Internet."}
         </p>
-        <p className="mt-0.5 text-ink-300">
+        <p className="mt-0.5 text-body">
           {online
             ? "Điểm vừa nhập chưa được xác nhận trên máy chủ. Vui lòng giữ màn hình mở."
             : "Điểm có thể chưa được đồng bộ. Ứng dụng sẽ tự gửi lại khi có mạng — đừng đóng tab này."}

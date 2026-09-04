@@ -6,8 +6,8 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#0b1220",
-  "theme_color": "#0b1220",
+  "background_color": "#f1f4f9",
+  "theme_color": "#f1f4f9",
   "lang": "vi",
   "icons": [
     {
@@ -24,8 +24,17 @@
     }
   ],
   "shortcuts": [
-    { "name": "Bảng điểm", "url": "/scoreboard" },
-    { "name": "Trọng tài", "url": "/referee" },
-    { "name": "Quản trị", "url": "/admin" }
+    {
+      "name": "Bảng điểm",
+      "url": "/scoreboard"
+    },
+    {
+      "name": "Trọng tài",
+      "url": "/referee"
+    },
+    {
+      "name": "Quản trị",
+      "url": "/admin"
+    }
   ]
 }

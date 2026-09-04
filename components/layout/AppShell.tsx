@@ -25,7 +25,7 @@ export function AppShell({
       >
         {children}
       </main>
-      <footer className="border-t border-ink-700/60 px-4 py-4 text-center text-xs text-ink-500">
+      <footer className="border-t border-line/60 px-4 py-4 text-center text-xs text-faint">
         Hệ thống điều hành giải Pickleball · dữ liệu realtime qua Firebase Firestore
       </footer>
     </div>

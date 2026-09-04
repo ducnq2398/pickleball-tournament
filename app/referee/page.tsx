@@ -51,8 +51,8 @@ export default function RefereePage() {
         ) : (
           <div className="space-y-4">
             <div>
-              <h1 className="text-xl font-bold text-ink-100">Chọn sân bạn phụ trách</h1>
-              <p className="mt-1 text-sm text-ink-400">{tournament.name}</p>
+              <h1 className="text-xl font-bold text-strong">Chọn sân bạn phụ trách</h1>
+              <p className="mt-1 text-sm text-mute">{tournament.name}</p>
             </div>
 
             {courtsWithMatches.length === 0 ? (
@@ -76,26 +76,26 @@ export default function RefereePage() {
                       />
                       <CardBody className="space-y-3">
                         {match ? (
-                          <div className="space-y-1.5 rounded-xl bg-ink-800/60 p-3">
-                            <div className="flex items-center justify-between text-xs text-ink-400">
-                              <span className="font-semibold text-ink-300">#{match.code}</span>
+                          <div className="space-y-1.5 rounded-xl bg-subtle/60 p-3">
+                            <div className="flex items-center justify-between text-xs text-mute">
+                              <span className="font-semibold text-body">#{match.code}</span>
                               <MatchStatusBadge status={match.status} />
                             </div>
                             <div className="flex items-center justify-between gap-3">
                               <TeamName teamId={match.team1Id} match={match} slot={1} teams={teams} className="text-sm" />
-                              <span className="tabular text-lg font-bold text-ink-100">
+                              <span className="tabular text-lg font-bold text-strong">
                                 {match.score1}
                               </span>
                             </div>
                             <div className="flex items-center justify-between gap-3">
                               <TeamName teamId={match.team2Id} match={match} slot={2} teams={teams} className="text-sm" />
-                              <span className="tabular text-lg font-bold text-ink-100">
+                              <span className="tabular text-lg font-bold text-strong">
                                 {match.score2}
                               </span>
                             </div>
                           </div>
                         ) : (
-                          <p className="rounded-xl bg-ink-800/60 p-3 text-sm text-ink-400">
+                          <p className="rounded-xl bg-subtle/60 p-3 text-sm text-mute">
                             Chưa có trận nào được phân cho sân này.
                           </p>
                         )}

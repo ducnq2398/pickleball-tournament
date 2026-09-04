@@ -8,7 +8,7 @@ export function LoadingSpinner({ className }: { className?: string }) {
 
 export function PageLoading({ label = "Đang tải dữ liệu..." }: { label?: string }) {
   return (
-    <div className="flex min-h-[50vh] flex-col items-center justify-center gap-3 text-ink-400">
+    <div className="flex min-h-[50vh] flex-col items-center justify-center gap-3 text-mute">
       <LoadingSpinner className="h-8 w-8" />
       <p className="text-sm">{label}</p>
     </div>
@@ -16,7 +16,7 @@ export function PageLoading({ label = "Đang tải dữ liệu..." }: { label?: 
 }
 
 export function Skeleton({ className }: { className?: string }) {
-  return <div className={cn("animate-pulse rounded-lg bg-ink-700/60", className)} />;
+  return <div className={cn("animate-pulse rounded-lg bg-fill/60", className)} />;
 }
 
 export function SkeletonList({ rows = 3 }: { rows?: number }) {
@@ -41,11 +41,11 @@ export function EmptyState({
   icon?: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-ink-600 bg-ink-850/60 px-6 py-10 text-center">
-      <div className="text-ink-500">{icon ?? <Inbox className="h-8 w-8" />}</div>
+    <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-line-strong bg-surface/60 px-6 py-10 text-center">
+      <div className="text-faint">{icon ?? <Inbox className="h-8 w-8" />}</div>
       <div>
-        <p className="font-semibold text-ink-100">{title}</p>
-        {description ? <p className="mt-1 max-w-md text-sm text-ink-400">{description}</p> : null}
+        <p className="font-semibold text-strong">{title}</p>
+        {description ? <p className="mt-1 max-w-md text-sm text-mute">{description}</p> : null}
       </div>
       {action}
     </div>
@@ -65,8 +65,8 @@ export function ErrorState({
     <div className="flex flex-col items-center gap-3 rounded-2xl border border-live-500/40 bg-live-500/10 px-6 py-8 text-center">
       <AlertTriangle className="h-8 w-8 text-live-400" />
       <div>
-        <p className="font-semibold text-ink-100">{title}</p>
-        <p className="mt-1 max-w-lg text-sm text-ink-300">{message}</p>
+        <p className="font-semibold text-strong">{title}</p>
+        <p className="mt-1 max-w-lg text-sm text-body">{message}</p>
       </div>
       {action}
     </div>

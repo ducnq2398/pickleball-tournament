@@ -86,7 +86,7 @@ export function QuickScore({ match }: { match: Match }) {
   return (
     <div className="flex w-full flex-wrap items-center gap-2">
       {([1, 2] as const).map((slot) => (
-        <div key={slot} className="flex items-center gap-1 rounded-lg bg-ink-800 p-1">
+        <div key={slot} className="flex items-center gap-1 rounded-lg bg-subtle p-1">
           <Button
             variant="ghost"
             size="sm"
@@ -97,7 +97,7 @@ export function QuickScore({ match }: { match: Match }) {
           >
             <Minus className="h-3.5 w-3.5" />
           </Button>
-          <span className="tabular w-8 text-center text-sm font-bold text-ink-100">
+          <span className="tabular w-8 text-center text-sm font-bold text-strong">
             {slot === 1 ? match.score1 : match.score2}
           </span>
           <Button

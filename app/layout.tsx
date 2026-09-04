@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b1220",
+  themeColor: "#f1f4f9",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -32,7 +32,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="vi">
-      <body className="bg-ink-900 text-ink-100 antialiased">
+      <body className="bg-canvas text-strong antialiased">
         <AppProviders>{children}</AppProviders>
       </body>
     </html>

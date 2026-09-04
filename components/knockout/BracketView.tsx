@@ -28,7 +28,7 @@ export function BracketView({
       <div className="flex min-w-full flex-col gap-4 lg:flex-row lg:items-stretch lg:gap-6">
         {rounds.map((round) => (
           <div key={round.stage} className="flex min-w-[17rem] flex-1 flex-col">
-            <h3 className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-ink-400">
+            <h3 className="mb-3 text-center text-xs font-bold uppercase tracking-widest text-mute">
               {STAGE_LABELS[round.stage]}
             </h3>
             <div className="flex flex-1 flex-col justify-around gap-4">
@@ -69,12 +69,12 @@ function BracketMatch({
   return (
     <div
       className={cn(
-        "rounded-2xl border bg-ink-850 p-3",
-        match.status === "LIVE" ? "border-live-500/60" : "border-ink-700",
+        "rounded-2xl border bg-surface p-3",
+        match.status === "LIVE" ? "border-live-500/60" : "border-line",
       )}
     >
-      <div className="mb-2 flex items-center justify-between gap-2 text-xs text-ink-400">
-        <span className="font-semibold text-ink-300">
+      <div className="mb-2 flex items-center justify-between gap-2 text-xs text-mute">
+        <span className="font-semibold text-body">
           #{match.code}
           {court ? ` · ${court.name}` : ""}
         </span>
@@ -90,7 +90,7 @@ function BracketMatch({
               key={index}
               className={cn(
                 "flex items-center justify-between gap-2 rounded-lg px-2.5 py-2",
-                isWinner ? "bg-brand-500/15" : "bg-ink-800/60",
+                isWinner ? "bg-brand-500/15" : "bg-subtle/60",
               )}
             >
               <span className="flex min-w-0 items-center gap-1.5">
@@ -101,8 +101,8 @@ function BracketMatch({
                     team
                       ? isWinner
                         ? "font-bold text-brand-400"
-                        : "font-semibold text-ink-100"
-                      : "italic text-ink-400",
+                        : "font-semibold text-strong"
+                      : "italic text-mute",
                   )}
                 >
                   {team?.name ?? sourceLabel(slot.source)}
@@ -112,10 +112,10 @@ function BracketMatch({
                 className={cn(
                   "tabular shrink-0 text-lg font-bold",
                   match.status === "SCHEDULED"
-                    ? "text-ink-600"
+                    ? "text-faint"
                     : isWinner
                       ? "text-brand-400"
-                      : "text-ink-200",
+                      : "text-body",
                 )}
               >
                 {slot.score}

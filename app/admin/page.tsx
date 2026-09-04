@@ -116,8 +116,8 @@ export default function AdminDashboardPage() {
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <TournamentStatusBadge status={tournament.status} />
-              <h1 className="mt-2 text-2xl font-bold text-ink-100">{tournament.name}</h1>
-              <p className="mt-1 text-sm text-ink-400">
+              <h1 className="mt-2 text-2xl font-bold text-strong">{tournament.name}</h1>
+              <p className="mt-1 text-sm text-mute">
                 {teams.length} đội · {groups.length} bảng · {courts.length} sân · chạm{" "}
                 {tournament.config.groupTargetScore}/{tournament.config.knockoutTargetScore}
               </p>
@@ -182,7 +182,7 @@ export default function AdminDashboardPage() {
           description="Nhập điểm nhanh ngay tại đây khi cần."
           action={
             <Link href="/admin/matches">
-              <Button variant="ghost" size="sm" className="border border-ink-700">
+              <Button variant="ghost" size="sm" className="border border-line">
                 Quản lý trận
               </Button>
             </Link>
@@ -190,17 +190,17 @@ export default function AdminDashboardPage() {
         />
         <CardBody className="grid gap-3 md:grid-cols-2">
           {courtsWithMatches.length === 0 ? (
-            <p className="col-span-full py-3 text-center text-sm text-ink-500">
+            <p className="col-span-full py-3 text-center text-sm text-faint">
               Chưa có sân nào. Thêm sân trong phần Cài đặt.
             </p>
           ) : (
             courtsWithMatches.map(({ court, liveMatch, nextMatch }) => {
               const match = liveMatch ?? nextMatch;
               return (
-                <div key={court.id} className="rounded-xl border border-ink-700/70 bg-ink-800/40 p-3">
+                <div key={court.id} className="rounded-xl border border-line/70 bg-subtle/40 p-3">
                   <div className="mb-2 flex items-center justify-between">
-                    <h3 className="font-semibold text-ink-100">{court.name}</h3>
-                    <span className="text-xs text-ink-400">
+                    <h3 className="font-semibold text-strong">{court.name}</h3>
+                    <span className="text-xs text-mute">
                       {liveMatch ? "Đang thi đấu" : nextMatch ? "Trận kế tiếp" : "Trống"}
                     </span>
                   </div>
@@ -214,7 +214,7 @@ export default function AdminDashboardPage() {
                       actions={<QuickScore match={match} />}
                     />
                   ) : (
-                    <p className="py-4 text-center text-sm text-ink-500">Không có trận nào.</p>
+                    <p className="py-4 text-center text-sm text-faint">Không có trận nào.</p>
                   )}
                 </div>
               );
@@ -232,7 +232,7 @@ export default function AdminDashboardPage() {
           />
           <CardBody className="space-y-3">
             {liveMatches.length === 0 ? (
-              <p className="py-3 text-center text-sm text-ink-500">Không có trận nào đang diễn ra.</p>
+              <p className="py-3 text-center text-sm text-faint">Không có trận nào đang diễn ra.</p>
             ) : (
               liveMatches.map((match) => (
                 <MatchCard
@@ -254,7 +254,7 @@ export default function AdminDashboardPage() {
             title="Tiến độ từng bảng"
             action={
               <Link href="/standings">
-                <Button variant="ghost" size="sm" className="border border-ink-700">
+                <Button variant="ghost" size="sm" className="border border-line">
                   Xem BXH
                 </Button>
               </Link>
@@ -262,7 +262,7 @@ export default function AdminDashboardPage() {
           />
           <CardBody className="space-y-3">
             {standings.length === 0 ? (
-              <p className="py-3 text-center text-sm text-ink-500">Chưa chia bảng.</p>
+              <p className="py-3 text-center text-sm text-faint">Chưa chia bảng.</p>
             ) : (
               standings.map(({ group, rows, complete }) => {
                 const total = groupMatches.filter((m) => m.groupId === group.id).length;
@@ -272,16 +272,16 @@ export default function AdminDashboardPage() {
                 const percent = total ? Math.round((done / total) * 100) : 0;
 
                 return (
-                  <div key={group.id} className="rounded-xl bg-ink-800/40 p-3">
+                  <div key={group.id} className="rounded-xl bg-subtle/40 p-3">
                     <div className="mb-2 flex items-center justify-between text-sm">
-                      <span className="font-semibold text-ink-100">
+                      <span className="font-semibold text-strong">
                         {group.name}
-                        <span className="ml-2 text-xs font-normal text-ink-400">
+                        <span className="ml-2 text-xs font-normal text-mute">
                           <Users className="mr-1 inline h-3 w-3" />
                           {rows.length} đội
                         </span>
                       </span>
-                      <span className="tabular flex items-center gap-1 text-ink-300">
+                      <span className="tabular flex items-center gap-1 text-body">
                         {complete ? (
                           <CheckCircle2 className="h-3.5 w-3.5 text-brand-400" />
                         ) : (
@@ -290,13 +290,13 @@ export default function AdminDashboardPage() {
                         {done}/{total}
                       </span>
                     </div>
-                    <div className="h-2 overflow-hidden rounded-full bg-ink-700">
+                    <div className="h-2 overflow-hidden rounded-full bg-fill">
                       <div
                         className="h-full rounded-full bg-brand-500 transition-all"
                         style={{ width: `${percent}%` }}
                       />
                     </div>
-                    <p className="mt-2 truncate text-xs text-ink-400">
+                    <p className="mt-2 truncate text-xs text-mute">
                       Dẫn đầu: {rows[0]?.teamName ?? "—"}
                     </p>
                   </div>

@@ -26,7 +26,7 @@ export function TeamName({
   if (!team) {
     const source = slot === 1 ? match?.team1Source : slot === 2 ? match?.team2Source : undefined;
     return (
-      <span className={cn("italic text-ink-400", className)}>
+      <span className={cn("italic text-mute", className)}>
         {source ? sourceLabel(source) : "Chưa xác định"}
       </span>
     );
@@ -34,9 +34,9 @@ export function TeamName({
 
   return (
     <span className={cn("min-w-0", className)}>
-      <span className="block truncate font-semibold text-ink-100">{team.name}</span>
+      <span className="block truncate font-semibold text-strong">{team.name}</span>
       {showPlayers && team.players.length > 0 ? (
-        <span className="block truncate text-xs font-normal text-ink-400">
+        <span className="block truncate text-xs font-normal text-mute">
           {team.players.map((player) => player.name).join(" · ")}
         </span>
       ) : null}

@@ -101,7 +101,7 @@ export default function AdminMatchesPage() {
               <Button
                 variant={groupMatches.length ? "ghost" : "primary"}
                 size="sm"
-                className={groupMatches.length ? "border border-ink-700" : undefined}
+                className={groupMatches.length ? "border border-line" : undefined}
                 onClick={() => setConfirmGenerate(true)}
                 disabled={!scheduleCheck.ok}
                 icon={<CalendarPlus className="h-4 w-4" />}
@@ -212,7 +212,7 @@ export default function AdminMatchesPage() {
               }
             />
           ) : filtered.length === 0 ? (
-            <p className="py-6 text-center text-sm text-ink-500">
+            <p className="py-6 text-center text-sm text-faint">
               Không có trận nào khớp bộ lọc.
             </p>
           ) : (

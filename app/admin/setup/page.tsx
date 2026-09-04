@@ -189,7 +189,7 @@ export default function SetupWizardPage() {
           title="Tạo giải mới"
           description={`Bước ${step + 1}/${STEPS.length}: ${STEPS[step]}`}
           action={
-            <Button variant="ghost" size="sm" className="border border-ink-700" onClick={handleSeed} loading={creating} icon={<Sparkles className="h-4 w-4" />}>
+            <Button variant="ghost" size="sm" className="border border-line" onClick={handleSeed} loading={creating} icon={<Sparkles className="h-4 w-4" />}>
               Dùng giải mẫu
             </Button>
           }
@@ -202,10 +202,10 @@ export default function SetupWizardPage() {
                 className={cn(
                   "flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-medium",
                   index === step
-                    ? "bg-brand-500 text-ink-950"
+                    ? "bg-brand-500 text-white"
                     : index < step
                       ? "bg-brand-500/15 text-brand-400"
-                      : "bg-ink-800 text-ink-400",
+                      : "bg-subtle text-mute",
                 )}
               >
                 {index < step ? <Check className="h-3 w-3" /> : <span>{index + 1}</span>}
@@ -312,7 +312,7 @@ export default function SetupWizardPage() {
               {teams.map((team, index) => (
                 <div
                   key={index}
-                  className="grid gap-2 rounded-xl border border-ink-700/70 bg-ink-800/40 p-3 sm:grid-cols-[1fr_2fr]"
+                  className="grid gap-2 rounded-xl border border-line/70 bg-subtle/40 p-3 sm:grid-cols-[1fr_2fr]"
                 >
                   <Input
                     value={team.name}
@@ -350,7 +350,7 @@ export default function SetupWizardPage() {
                 <Button variant="secondary" size="sm" onClick={() => setDistribution(null)}>
                   Chia tự động lại
                 </Button>
-                <span className="text-sm text-ink-400">
+                <span className="text-sm text-mute">
                   {groupSizes.map((size, index) => `${groupDisplayName(index)}: ${size} đội`).join(" · ")}
                 </span>
               </div>
@@ -362,9 +362,9 @@ export default function SetupWizardPage() {
                   return (
                     <div
                       key={index}
-                      className="flex items-center gap-3 rounded-lg border border-ink-700/70 bg-ink-800/40 px-3 py-2"
+                      className="flex items-center gap-3 rounded-lg border border-line/70 bg-subtle/40 px-3 py-2"
                     >
-                      <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink-100">
+                      <span className="min-w-0 flex-1 truncate text-sm font-medium text-strong">
                         {team.name || `Đội ${index + 1}`}
                       </span>
                       <Select
@@ -404,13 +404,13 @@ export default function SetupWizardPage() {
               </div>
               <div className="space-y-2">
                 {groupSizes.map((size, index) => (
-                  <p key={index} className="rounded-lg bg-ink-800/50 px-3 py-2 text-sm text-ink-300">
-                    <strong className="text-ink-100">{groupDisplayName(index)}</strong>: {size} đội →{" "}
+                  <p key={index} className="rounded-lg bg-subtle/50 px-3 py-2 text-sm text-body">
+                    <strong className="text-strong">{groupDisplayName(index)}</strong>: {size} đội →{" "}
                     {countRoundRobinMatches(size)} trận (vòng tròn 1 lượt)
                   </p>
                 ))}
               </div>
-              <p className="text-sm text-ink-400">
+              <p className="text-sm text-mute">
                 Lịch sẽ được sinh tự động và phân luân phiên vào {numberOfCourts} sân, bảo đảm không
                 đội nào phải đá 2 trận cùng lúc.
               </p>
@@ -419,51 +419,51 @@ export default function SetupWizardPage() {
 
           {step === 5 ? (
             <div className="space-y-4">
-              <div className="rounded-xl border border-ink-700 bg-ink-800/40 p-4">
-                <h3 className="text-lg font-bold text-ink-100">{name}</h3>
-                <p className="mt-1 text-sm text-ink-400">
+              <div className="rounded-xl border border-line bg-subtle/40 p-4">
+                <h3 className="text-lg font-bold text-strong">{name}</h3>
+                <p className="mt-1 text-sm text-mute">
                   {date} {location ? `· ${location}` : ""}
                 </p>
                 <dl className="mt-3 grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
                   <div>
-                    <dt className="text-ink-400">Đội</dt>
-                    <dd className="font-semibold text-ink-100">
+                    <dt className="text-mute">Đội</dt>
+                    <dd className="font-semibold text-strong">
                       {teams.filter((t) => t.name.trim()).length}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-ink-400">Bảng</dt>
-                    <dd className="font-semibold text-ink-100">{numberOfGroups}</dd>
+                    <dt className="text-mute">Bảng</dt>
+                    <dd className="font-semibold text-strong">{numberOfGroups}</dd>
                   </div>
                   <div>
-                    <dt className="text-ink-400">Sân</dt>
-                    <dd className="font-semibold text-ink-100">{numberOfCourts}</dd>
+                    <dt className="text-mute">Sân</dt>
+                    <dd className="font-semibold text-strong">{numberOfCourts}</dd>
                   </div>
                   <div>
-                    <dt className="text-ink-400">Trận vòng bảng</dt>
+                    <dt className="text-mute">Trận vòng bảng</dt>
                     <dd className="font-semibold text-brand-400">{totalMatches}</dd>
                   </div>
                   <div>
-                    <dt className="text-ink-400">Điểm chạm</dt>
-                    <dd className="font-semibold text-ink-100">
+                    <dt className="text-mute">Điểm chạm</dt>
+                    <dd className="font-semibold text-strong">
                       {groupTarget} / {knockoutTarget}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-ink-400">Hơn 2 điểm</dt>
-                    <dd className="font-semibold text-ink-100">{winByTwo ? "Có" : "Không"}</dd>
+                    <dt className="text-mute">Hơn 2 điểm</dt>
+                    <dd className="font-semibold text-strong">{winByTwo ? "Có" : "Không"}</dd>
                   </div>
                   <div>
-                    <dt className="text-ink-400">Suất đi tiếp</dt>
-                    <dd className="font-semibold text-ink-100">{qualifiers} mỗi bảng</dd>
+                    <dt className="text-mute">Suất đi tiếp</dt>
+                    <dd className="font-semibold text-strong">{qualifiers} mỗi bảng</dd>
                   </div>
                   <div>
-                    <dt className="text-ink-400">Tranh hạng 3</dt>
-                    <dd className="font-semibold text-ink-100">{thirdPlace ? "Có" : "Không"}</dd>
+                    <dt className="text-mute">Tranh hạng 3</dt>
+                    <dd className="font-semibold text-strong">{thirdPlace ? "Có" : "Không"}</dd>
                   </div>
                 </dl>
               </div>
-              <p className="text-sm text-ink-400">
+              <p className="text-sm text-mute">
                 Sau khi tạo, giải chuyển ngay sang trạng thái VÒNG BẢNG và trọng tài có thể nhập điểm.
               </p>
             </div>
@@ -471,10 +471,10 @@ export default function SetupWizardPage() {
 
           <ValidationList errors={errors} warnings={warnings} />
 
-          <div className="flex justify-between gap-2 border-t border-ink-700/60 pt-4">
+          <div className="flex justify-between gap-2 border-t border-line/60 pt-4">
             <Button
               variant="ghost"
-              className="border border-ink-700"
+              className="border border-line"
               onClick={() => setStep((value) => Math.max(0, value - 1))}
               disabled={step === 0}
               icon={<ArrowLeft className="h-4 w-4" />}

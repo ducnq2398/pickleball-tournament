@@ -34,13 +34,13 @@ export function AppHeader() {
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink-700/70 bg-ink-900/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-line bg-surface/85 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4">
         <Link href="/" className="flex shrink-0 items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-ink-950">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-white">
             <Trophy className="h-4.5 w-4.5" />
           </span>
-          <span className="hidden text-sm font-bold tracking-tight text-ink-100 sm:block">
+          <span className="hidden text-sm font-bold tracking-tight text-strong sm:block">
             PICKLEBALL
           </span>
         </Link>
@@ -53,8 +53,8 @@ export function AppHeader() {
               className={cn(
                 "flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
                 isActive(link.href)
-                  ? "bg-ink-800 text-ink-100"
-                  : "text-ink-400 hover:bg-ink-800/60 hover:text-ink-200",
+                  ? "bg-subtle text-strong"
+                  : "text-mute hover:bg-subtle/60 hover:text-body",
               )}
             >
               <link.icon className="h-4 w-4" />
@@ -68,7 +68,7 @@ export function AppHeader() {
           <ConnectionIndicator />
           <button
             type="button"
-            className="rounded-lg p-2 text-ink-300 hover:bg-ink-800 md:hidden"
+            className="rounded-lg p-2 text-body hover:bg-subtle md:hidden"
             onClick={() => setOpen((value) => !value)}
             aria-label="Menu"
             aria-expanded={open}
@@ -79,7 +79,7 @@ export function AppHeader() {
       </div>
 
       {open ? (
-        <nav className="border-t border-ink-700/70 bg-ink-900 px-4 py-3 md:hidden">
+        <nav className="border-t border-line bg-surface px-4 py-3 md:hidden">
           <TournamentSwitcher className="mb-3 sm:hidden" />
           <div className="grid grid-cols-2 gap-2">
             {LINKS.map((link) => (
@@ -89,7 +89,9 @@ export function AppHeader() {
                 onClick={() => setOpen(false)}
                 className={cn(
                   "flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium",
-                  isActive(link.href) ? "bg-ink-800 text-ink-100" : "bg-ink-850 text-ink-300",
+                  isActive(link.href)
+                    ? "bg-brand-500 text-white"
+                    : "border border-line bg-surface text-body",
                 )}
               >
                 <link.icon className="h-4 w-4" />

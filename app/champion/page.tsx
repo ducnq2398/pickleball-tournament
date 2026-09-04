@@ -59,7 +59,7 @@ export default function ChampionPage() {
             showLink={false}
           />
 
-          <p className="text-center text-lg font-semibold text-ink-200">
+          <p className="text-center text-lg font-semibold text-body">
             Chúc mừng {champion.name} đã vô địch {tournament.name}!
           </p>
 
@@ -67,7 +67,7 @@ export default function ChampionPage() {
             {standings.map(({ group, rows }) => (
               <Card key={group.id}>
                 <CardBody>
-                  <h3 className="mb-3 text-sm font-bold uppercase tracking-wide text-ink-300">
+                  <h3 className="mb-3 text-sm font-bold uppercase tracking-wide text-body">
                     {group.name}
                   </h3>
                   <StandingsTable rows={rows} qualificationSlots={group.qualificationSlots} complete />
@@ -81,7 +81,7 @@ export default function ChampionPage() {
               <Button variant="secondary">Nhánh knockout</Button>
             </Link>
             <Link href="/standings">
-              <Button variant="ghost" className="border border-ink-700">
+              <Button variant="ghost" className="border border-line">
                 Bảng xếp hạng
               </Button>
             </Link>

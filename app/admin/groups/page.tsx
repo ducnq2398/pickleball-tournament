@@ -104,14 +104,14 @@ export default function AdminGroupsPage() {
       onDragStart={() => setDragging(team.id)}
       onDragEnd={() => setDragging(null)}
       className={cn(
-        "flex items-center gap-2 rounded-lg border border-ink-700/60 bg-ink-800/60 px-2.5 py-2",
+        "flex items-center gap-2 rounded-lg border border-line/60 bg-subtle/60 px-2.5 py-2",
         dragging === team.id && "opacity-50",
       )}
     >
-      <GripVertical className="h-4 w-4 shrink-0 cursor-grab text-ink-500" />
+      <GripVertical className="h-4 w-4 shrink-0 cursor-grab text-faint" />
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-semibold text-ink-100">{team.name}</p>
-        <p className="truncate text-xs text-ink-400">
+        <p className="truncate text-sm font-semibold text-strong">{team.name}</p>
+        <p className="truncate text-xs text-mute">
           {team.players.map((player) => player.name).join(" · ") || "Chưa có VĐV"}
         </p>
       </div>
@@ -140,13 +140,13 @@ export default function AdminGroupsPage() {
           description={`${teams.length} đội · ${groups.length} bảng · kéo thả hoặc chọn bảng để chuyển đội`}
           action={
             <>
-              <Button variant="ghost" size="sm" className="border border-ink-700" onClick={handleAuto} icon={<Shuffle className="h-4 w-4" />}>
+              <Button variant="ghost" size="sm" className="border border-line" onClick={handleAuto} icon={<Shuffle className="h-4 w-4" />}>
                 Chia tự động
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
-                className="border border-ink-700"
+                className="border border-line"
                 onClick={() => setAssignments(serverAssignments)}
                 disabled={!dirty}
                 icon={<RotateCcw className="h-4 w-4" />}
@@ -207,7 +207,7 @@ export default function AdminGroupsPage() {
                   <CardBody className="space-y-3">
                     <ul className="min-h-[6rem] space-y-2">
                       {teamIds.length === 0 ? (
-                        <li className="rounded-lg border border-dashed border-ink-600 px-3 py-6 text-center text-sm text-ink-500">
+                        <li className="rounded-lg border border-dashed border-line-strong px-3 py-6 text-center text-sm text-faint">
                           Kéo đội vào đây
                         </li>
                       ) : (

@@ -317,6 +317,23 @@ firestore.rules · firestore.indexes.json · firebase.json · .env.example
 Quy tắc kiến trúc: **UI → hooks → lib/firestore → Firestore**, và
 **UI không bao giờ tự tính luật** mà gọi `lib/tournament/*`.
 
+### Bảng màu
+
+Toàn bộ màu khai báo một chỗ ở [`app/globals.css`](app/globals.css) dưới dạng token
+**ngữ nghĩa**, không phải theo độ đậm nhạt — đọc class là biết dùng vào việc gì:
+
+| Token | Dùng cho |
+| --- | --- |
+| `canvas` / `surface` / `subtle` | nền trang · nền thẻ · ô lõm bên trong thẻ |
+| `fill` / `fill-strong` | nền badge, thanh tiến độ, công tắc |
+| `line` / `line-strong` | đường viền thẻ · viền ô nhập |
+| `strong` / `body` / `mute` / `faint` | chữ chính · chữ thường · chữ phụ · chữ mờ |
+| `brand` / `live` / `warn` / `info` | thắng cuộc · đang đấu · cảnh báo · số sân |
+
+Quy ước với màu nhấn: cỡ **-400 dùng cho CHỮ**, cỡ **-500 dùng cho NỀN**.
+Mọi cặp chữ/nền đều đạt tương phản WCAG AA (≥ 4.5:1; chữ mờ ≥ 3:1) — đổi màu thì
+kiểm lại trước khi dùng ngoài nắng sân đấu.
+
 ---
 
 ## 12. Luật thi đấu & nguyên tắc dữ liệu

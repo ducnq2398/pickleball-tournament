@@ -13,7 +13,7 @@ export function Card({
   return (
     <Component
       className={cn(
-        "rounded-2xl border border-ink-700/70 bg-ink-850 shadow-sm shadow-black/20",
+        "rounded-2xl border border-line bg-surface shadow-sm shadow-slate-900/[0.04]",
         className,
       )}
     >
@@ -38,15 +38,15 @@ export function CardHeader({
   return (
     <div
       className={cn(
-        "flex flex-wrap items-start justify-between gap-3 border-b border-ink-700/60 px-4 py-3 sm:px-5",
+        "flex flex-wrap items-start justify-between gap-3 border-b border-line/60 px-4 py-3 sm:px-5",
         className,
       )}
     >
       <div className="flex min-w-0 items-start gap-3">
         {icon ? <div className="mt-0.5 text-brand-400">{icon}</div> : null}
         <div className="min-w-0">
-          <h2 className="truncate text-base font-semibold text-ink-100">{title}</h2>
-          {description ? <p className="mt-0.5 text-sm text-ink-400">{description}</p> : null}
+          <h2 className="truncate text-base font-semibold text-strong">{title}</h2>
+          {description ? <p className="mt-0.5 text-sm text-mute">{description}</p> : null}
         </div>
       </div>
       {action ? <div className="flex shrink-0 items-center gap-2">{action}</div> : null}
@@ -70,17 +70,17 @@ export function StatTile({
   tone?: "default" | "live" | "success" | "warning";
 }) {
   const tones = {
-    default: "text-ink-100",
+    default: "text-strong",
     live: "text-live-400",
     success: "text-brand-400",
     warning: "text-warn-400",
   } as const;
 
   return (
-    <div className="rounded-xl border border-ink-700/70 bg-ink-800/60 px-4 py-3">
-      <p className="text-xs font-medium uppercase tracking-wide text-ink-400">{label}</p>
+    <div className="rounded-xl border border-line/70 bg-subtle/60 px-4 py-3">
+      <p className="text-xs font-medium uppercase tracking-wide text-mute">{label}</p>
       <p className={cn("tabular mt-1 text-2xl font-bold", tones[tone])}>{value}</p>
-      {hint ? <p className="mt-0.5 text-xs text-ink-400">{hint}</p> : null}
+      {hint ? <p className="mt-0.5 text-xs text-mute">{hint}</p> : null}
     </div>
   );
 }
