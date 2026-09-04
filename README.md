@@ -239,6 +239,23 @@ npm run test:all       # chạy cả hai
 npm run check:role -- <email> <mật-khẩu>   # kiểm tra vai trò của một tài khoản
 ```
 
+### Chạy thử dưới máy bằng Emulator (không cần deploy rules)
+
+Muốn xem/thử toàn bộ app trước khi deploy rules, hoặc không muốn đụng dữ liệu
+giải thật — dùng Firebase Emulator (cần Java). Ba lệnh, ba cửa sổ terminal:
+
+```bash
+npm run emulator          # 1. Firestore + Auth emulator (nạp firestore.rules thật)
+npm run emulator:admin    # 2. tạo sẵn tài khoản btc@demo.local / demo1234 có role ADMIN
+npm run dev:emulator      # 3. chạy app trỏ vào emulator
+```
+
+Rồi vào `http://localhost:3000/login`, đăng nhập bằng tài khoản trên và bấm
+**TẠO GIẢI MẪU**. Dữ liệu nằm hoàn toàn trong emulator, tắt là mất.
+
+Ứng dụng nhận biết emulator qua 2 biến (xem `.env.example`):
+`NEXT_PUBLIC_FIRESTORE_EMULATOR_HOST` và `NEXT_PUBLIC_AUTH_EMULATOR_URL`.
+
 Test trên điện thoại cùng mạng LAN:
 
 ```bash
@@ -333,6 +350,23 @@ Toàn bộ màu khai báo một chỗ ở [`app/globals.css`](app/globals.css) d
 Quy ước với màu nhấn: cỡ **-400 dùng cho CHỮ**, cỡ **-500 dùng cho NỀN**.
 Mọi cặp chữ/nền đều đạt tương phản WCAG AA (≥ 4.5:1; chữ mờ ≥ 3:1) — đổi màu thì
 kiểm lại trước khi dùng ngoài nắng sân đấu.
+
+### Responsive
+
+Đã kiểm bằng Chrome thật ở 375 / 390 / 430 / 768 / 1280px cho cả 14 trang:
+không trang nào tràn ngang, không nút/ô nào nhỏ hơn 32px trên điện thoại.
+
+Hai quy tắc dễ vỡ nhất, đã gây lỗi thật và cần nhớ khi viết thêm giao diện:
+
+1. **Thẻ nằm trong `grid`/`flex` phải có `min-w-0`.** Mặc định ô lưới là
+   `min-width:auto`, nên một bảng rộng bên trong sẽ kéo giãn cả ô và tràn ra
+   ngoài màn hình — dù đã bọc `overflow-x-auto`. `Card` đã đặt sẵn `min-w-0`.
+2. **`Input`/`Select` đã có `w-full` trong class gốc.** Muốn hẹp hơn ở nơi gọi
+   phải viết `w-28!` (có dấu `!`); viết `w-28` thường sẽ thua và ô select nuốt
+   hết chiều ngang. Biến thể `sm:w-40` thì không cần `!`.
+
+Bảng xếp hạng dùng bố cục riêng cho điện thoại (thẻ xếp dọc) vì bảng 8 cột
+không vừa màn hình và người xem không biết là có thể cuộn ngang.
 
 ---
 

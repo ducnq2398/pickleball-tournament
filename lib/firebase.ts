@@ -9,8 +9,9 @@
  *   khi mạng chập chờn — Firestore SDK tự sync lại khi có mạng.
  */
 import { getApp, getApps, initializeApp, type FirebaseApp } from "firebase/app";
-import { getAuth, type Auth } from "firebase/auth";
+import { connectAuthEmulator, getAuth, type Auth } from "firebase/auth";
 import {
+  connectFirestoreEmulator,
   getFirestore,
   initializeFirestore,
   persistentLocalCache,
@@ -55,6 +56,19 @@ export class FirebaseNotConfiguredError extends Error {
   }
 }
 
+/**
+ * Chạy với Firestore Emulator thay vì Firestore thật.
+ * Đặt NEXT_PUBLIC_FIRESTORE_EMULATOR_HOST="127.0.0.1:8080" khi dev/chụp ảnh giao
+ * diện để không cần deploy rules và không đụng vào dữ liệu giải thật.
+ */
+const emulatorHost = process.env.NEXT_PUBLIC_FIRESTORE_EMULATOR_HOST;
+/** Ví dụ "http://127.0.0.1:9099" — chỉ đặt khi chạy với Auth Emulator. */
+const authEmulatorUrl = process.env.NEXT_PUBLIC_AUTH_EMULATOR_URL;
+
+export function isUsingEmulator(): boolean {
+  return !!emulatorHost;
+}
+
 let appInstance: FirebaseApp | null = null;
 let dbInstance: Firestore | null = null;
 let authInstance: Auth | null = null;
@@ -85,24 +99,49 @@ export function getDb(): Firestore {
 
   if (typeof window === "undefined") {
     dbInstance = getFirestore(app);
+    if (emulatorHost) connectToEmulator(dbInstance);
     return dbInstance;
   }
 
   try {
-    dbInstance = initializeFirestore(app, {
-      localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
-      experimentalForceLongPolling:
-        process.env.NEXT_PUBLIC_FIREBASE_FORCE_LONG_POLLING === "true",
-    });
+    dbInstance = emulatorHost
+      ? // Cache IndexedDB và emulator hay xung đột khi hot reload -> dùng bản gọn.
+        getFirestore(app)
+      : initializeFirestore(app, {
+          localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
+          experimentalForceLongPolling:
+            process.env.NEXT_PUBLIC_FIREBASE_FORCE_LONG_POLLING === "true",
+        });
   } catch {
     // initializeFirestore ném lỗi nếu instance đã tồn tại (hot reload) -> lấy lại.
     dbInstance = getFirestore(app);
   }
+
+  if (emulatorHost) connectToEmulator(dbInstance);
   return dbInstance;
+}
+
+function connectToEmulator(db: Firestore): void {
+  const [host, port] = (emulatorHost as string).split(":");
+  try {
+    connectFirestoreEmulator(db, host, Number(port) || 8080);
+    console.info(`[firebase] Đang dùng Firestore Emulator tại ${emulatorHost}`);
+  } catch {
+    // Đã kết nối rồi (hot reload) -> bỏ qua.
+  }
 }
 
 export function getFirebaseAuth(): Auth {
   if (authInstance) return authInstance;
   authInstance = getAuth(getFirebaseApp());
+
+  if (authEmulatorUrl) {
+    try {
+      connectAuthEmulator(authInstance, authEmulatorUrl, { disableWarnings: true });
+      console.info(`[firebase] Đang dùng Auth Emulator tại ${authEmulatorUrl}`);
+    } catch {
+      // Đã kết nối rồi -> bỏ qua.
+    }
+  }
   return authInstance;
 }

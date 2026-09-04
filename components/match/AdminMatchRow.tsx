@@ -104,7 +104,7 @@ export function AdminMatchRow({ match }: { match: Match }) {
       {match.status !== "FINISHED" && match.status !== "CANCELLED" ? (
         <Select
           aria-label={`Phân sân cho trận #${match.code}`}
-          className="h-8 w-28 py-0 text-xs"
+          className="h-8 w-28! py-0 text-xs"
           value={match.courtId ?? ""}
           onChange={(event) => void handleCourtChange(event.target.value)}
         >

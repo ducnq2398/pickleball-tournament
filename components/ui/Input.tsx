@@ -3,6 +3,16 @@
 import type { InputHTMLAttributes, ReactNode, SelectHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
+/**
+ * LƯU Ý QUAN TRỌNG: BASE đã có `w-full`.
+ *
+ * - Viết `w-28` thường ở nơi gọi sẽ THUA `w-full` (Tailwind xử theo thứ tự trong
+ *   file CSS, không theo thứ tự chuỗi class) -> ô select nuốt hết chiều ngang,
+ *   đẩy nội dung bên cạnh biến mất. Đã từng gây lỗi ở trang Chia bảng.
+ * - Cách đúng: dùng hậu tố quan trọng `w-28!`.
+ * - Các biến thể có tiền tố như `sm:w-40` thì KHÔNG cần `!` vì variant luôn
+ *   được xếp sau utility gốc.
+ */
 const BASE =
   "w-full rounded-lg border border-line-strong bg-surface px-3 py-2 text-sm text-strong placeholder:text-faint " +
   "focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/25 " +

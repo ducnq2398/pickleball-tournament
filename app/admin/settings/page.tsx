@@ -367,15 +367,18 @@ export default function AdminSettingsPage() {
               {users.map((user) => (
                 <li
                   key={user.id}
-                  className="flex flex-wrap items-center gap-2 rounded-lg border border-line/70 bg-subtle/50 px-3 py-2"
+                  // Điện thoại: tên một dòng, hai ô chọn xuống dòng dưới — để cùng
+                  // hàng thì 2 select 128px bóp tên người dùng còn đúng một chữ.
+                  className="flex flex-col gap-2 rounded-lg border border-line/70 bg-subtle/50 px-3 py-2 sm:flex-row sm:flex-wrap sm:items-center"
                 >
-                  <div className="min-w-0 flex-1">
+                  <div className="min-w-0 sm:flex-1">
                     <p className="truncate text-sm font-semibold text-strong">{user.name}</p>
                     <p className="truncate text-xs text-mute">{user.email ?? user.id}</p>
                   </div>
+                  <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-2">
                   <Select
                     aria-label={`Vai trò của ${user.name}`}
-                    className="h-8 w-32 py-0 text-xs"
+                    className="h-8 py-0 text-xs sm:w-32"
                     value={user.role}
                     onChange={(event) =>
                       void setUserRole(user.id, event.target.value as UserRole).catch(notifyError)
@@ -386,7 +389,7 @@ export default function AdminSettingsPage() {
                   </Select>
                   <Select
                     aria-label={`Sân của ${user.name}`}
-                    className="h-8 w-32 py-0 text-xs"
+                    className="h-8 py-0 text-xs sm:w-32"
                     value={user.courtId ?? ""}
                     onChange={(event) =>
                       void setUserCourt(user.id, event.target.value || undefined).catch(notifyError)
@@ -399,6 +402,7 @@ export default function AdminSettingsPage() {
                       </option>
                     ))}
                   </Select>
+                  </div>
                 </li>
               ))}
             </ul>

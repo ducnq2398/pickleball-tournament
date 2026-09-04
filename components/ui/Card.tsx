@@ -13,7 +13,7 @@ export function Card({
   return (
     <Component
       className={cn(
-        "rounded-2xl border border-line bg-surface shadow-sm shadow-slate-900/[0.04]",
+        "min-w-0 rounded-2xl border border-line bg-surface shadow-sm shadow-slate-900/[0.04]",
         className,
       )}
     >
@@ -49,7 +49,9 @@ export function CardHeader({
           {description ? <p className="mt-0.5 text-sm text-mute">{description}</p> : null}
         </div>
       </div>
-      {action ? <div className="flex shrink-0 items-center gap-2">{action}</div> : null}
+      {action ? (
+        <div className="flex min-w-0 flex-wrap items-center justify-end gap-2">{action}</div>
+      ) : null}
     </div>
   );
 }

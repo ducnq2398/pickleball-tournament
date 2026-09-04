@@ -117,7 +117,7 @@ export default function AdminGroupsPage() {
       </div>
       <Select
         aria-label={`Chuyển ${team.name} sang bảng khác`}
-        className="h-8 w-28 shrink-0 py-0 text-xs"
+        className="h-8 w-28! shrink-0 py-0 text-xs"
         value={currentGroupId}
         onChange={(event) => handleMove(team.id, event.target.value)}
       >

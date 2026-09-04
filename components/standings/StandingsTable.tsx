@@ -24,7 +24,84 @@ export function StandingsTable({
   }
 
   return (
-    <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+    <>
+      {/* Điện thoại: bảng 8 cột không vừa màn hình và người xem không biết là
+          cuộn ngang được -> đổi thành thẻ xếp dọc, vẫn đủ mọi chỉ số. */}
+      <ul className="space-y-2 sm:hidden">
+        {rows.map((row) => {
+          const qualified = qualificationSlots > 0 && row.rank <= qualificationSlots;
+          return (
+            <li
+              key={row.teamId}
+              className={cn(
+                "rounded-xl border px-3 py-2.5",
+                qualified ? "border-brand-500/40 bg-brand-500/5" : "border-line bg-subtle/60",
+                highlightTeamId === row.teamId && "border-info-500/50 bg-info-500/10",
+              )}
+            >
+              <div className="flex items-center gap-2.5">
+                <span
+                  className={cn(
+                    "tabular inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-sm font-bold",
+                    qualified ? "bg-brand-500 text-white" : "bg-fill text-body",
+                  )}
+                >
+                  {row.rank}
+                </span>
+                <span className="min-w-0 flex-1 truncate font-semibold text-strong">
+                  {row.teamName}
+                </span>
+                {qualified && complete ? (
+                  <Trophy className="h-4 w-4 shrink-0 text-brand-400" />
+                ) : null}
+                <span className="tabular shrink-0 text-sm font-bold text-brand-400">
+                  {row.won}
+                  <span className="font-normal text-mute">T</span>
+                  <span className="mx-0.5 text-faint">/</span>
+                  <span className="text-mute">{row.lost}B</span>
+                </span>
+              </div>
+
+              <dl className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 pl-9 text-xs text-mute">
+                <div className="flex gap-1">
+                  <dt>Trận</dt>
+                  <dd className="tabular font-medium text-body">{row.played}</dd>
+                </div>
+                <div className="flex gap-1">
+                  <dt>Ghi</dt>
+                  <dd className="tabular font-medium text-body">{row.scoreFor}</dd>
+                </div>
+                <div className="flex gap-1">
+                  <dt>Thủng</dt>
+                  <dd className="tabular font-medium text-body">{row.scoreAgainst}</dd>
+                </div>
+                <div className="flex gap-1">
+                  <dt>Hiệu số</dt>
+                  <dd
+                    className={cn(
+                      "tabular font-semibold",
+                      row.diff > 0
+                        ? "text-brand-400"
+                        : row.diff < 0
+                          ? "text-live-400"
+                          : "text-body",
+                    )}
+                  >
+                    {formatDiff(row.diff)}
+                  </dd>
+                </div>
+              </dl>
+
+              {row.tiebreakReason ? (
+                <p className="mt-1 pl-9 text-xs text-faint">Phân định: {row.tiebreakReason}</p>
+              ) : null}
+            </li>
+          );
+        })}
+      </ul>
+
+      {/* Từ tablet trở lên mới đủ chỗ cho bảng đầy đủ. */}
+      <div className="hidden overflow-x-auto sm:block">
       <table className="w-full min-w-[34rem] border-collapse text-sm">
         <thead>
           <tr className="text-left text-xs uppercase tracking-wide text-mute">
@@ -101,6 +178,7 @@ export function StandingsTable({
           })}
         </tbody>
       </table>
-    </div>
+      </div>
+    </>
   );
 }

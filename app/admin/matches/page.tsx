@@ -157,50 +157,50 @@ export default function AdminMatchesPage() {
           icon={<Filter className="h-5 w-5" />}
           title="Trận vòng bảng"
           description={`Hiển thị ${filtered.length}/${groupMatches.length} trận`}
-          action={
-            <div className="flex flex-wrap gap-2">
-              <Select
-                aria-label="Lọc theo trạng thái"
-                className="h-8 w-32 py-0 text-xs"
-                value={statusFilter}
-                onChange={(event) => setStatusFilter(event.target.value as MatchStatus | "ALL")}
-              >
-                {STATUS_OPTIONS.map((status) => (
-                  <option key={status} value={status}>
-                    {status === "ALL" ? "Tất cả trạng thái" : MATCH_STATUS_LABELS[status]}
-                  </option>
-                ))}
-              </Select>
-              <Select
-                aria-label="Lọc theo bảng"
-                className="h-8 w-28 py-0 text-xs"
-                value={groupFilter}
-                onChange={(event) => setGroupFilter(event.target.value)}
-              >
-                <option value="ALL">Tất cả bảng</option>
-                {groups.map((group) => (
-                  <option key={group.id} value={group.id}>
-                    {group.name}
-                  </option>
-                ))}
-              </Select>
-              <Select
-                aria-label="Lọc theo sân"
-                className="h-8 w-28 py-0 text-xs"
-                value={courtFilter}
-                onChange={(event) => setCourtFilter(event.target.value)}
-              >
-                <option value="ALL">Tất cả sân</option>
-                {courts.map((court) => (
-                  <option key={court.id} value={court.id}>
-                    {court.name}
-                  </option>
-                ))}
-              </Select>
-            </div>
-          }
         />
         <CardBody>
+          {/* Bộ lọc: điện thoại xếp 2 cột cho dễ chạm, màn rộng xếp thành hàng. */}
+          <div className="mb-4 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+            <Select
+              aria-label="Lọc theo trạng thái"
+              className="h-9 py-0 text-xs sm:w-40"
+              value={statusFilter}
+              onChange={(event) => setStatusFilter(event.target.value as MatchStatus | "ALL")}
+            >
+              {STATUS_OPTIONS.map((status) => (
+                <option key={status} value={status}>
+                  {status === "ALL" ? "Tất cả trạng thái" : MATCH_STATUS_LABELS[status]}
+                </option>
+              ))}
+            </Select>
+            <Select
+              aria-label="Lọc theo bảng"
+              className="h-9 py-0 text-xs sm:w-36"
+              value={groupFilter}
+              onChange={(event) => setGroupFilter(event.target.value)}
+            >
+              <option value="ALL">Tất cả bảng</option>
+              {groups.map((group) => (
+                <option key={group.id} value={group.id}>
+                  {group.name}
+                </option>
+              ))}
+            </Select>
+            <Select
+              aria-label="Lọc theo sân"
+              className="col-span-2 h-9 py-0 text-xs sm:col-span-1 sm:w-36"
+              value={courtFilter}
+              onChange={(event) => setCourtFilter(event.target.value)}
+            >
+              <option value="ALL">Tất cả sân</option>
+              {courts.map((court) => (
+                <option key={court.id} value={court.id}>
+                  {court.name}
+                </option>
+              ))}
+            </Select>
+          </div>
+
           {groupMatches.length === 0 ? (
             <EmptyState
               title="Chưa có lịch thi đấu"

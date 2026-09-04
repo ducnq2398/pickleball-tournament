@@ -11,7 +11,10 @@
     "test:watch": "vitest",
     "test:emulator": "firebase emulators:exec --only firestore --project demo-pickleball \"vitest run --config vitest.emulator.mts\"",
     "test:all": "npm run test && npm run test:emulator",
-    "check:role": "node scripts/check-role.mjs"
+    "check:role": "node scripts/check-role.mjs",
+    "emulator": "firebase emulators:start --only firestore,auth --project demo-pickleball",
+    "emulator:admin": "node scripts/emulator-admin.mjs",
+    "dev:emulator": "NEXT_PUBLIC_FIREBASE_PROJECT_ID=demo-pickleball NEXT_PUBLIC_FIREBASE_API_KEY=demo-key NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=demo-pickleball.firebaseapp.com NEXT_PUBLIC_FIREBASE_APP_ID=1:1:web:demo NEXT_PUBLIC_FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 NEXT_PUBLIC_AUTH_EMULATOR_URL=http://127.0.0.1:9099 next dev"
   },
   "dependencies": {
     "firebase": "^12.18.0",

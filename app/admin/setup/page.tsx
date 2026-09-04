@@ -369,7 +369,7 @@ export default function SetupWizardPage() {
                       </span>
                       <Select
                         aria-label={`Bảng của ${team.name}`}
-                        className="h-8 w-32 py-0 text-xs"
+                        className="h-8 w-32! py-0 text-xs"
                         value={groupIndex}
                         onChange={(event) => {
                           const target = Number(event.target.value);
