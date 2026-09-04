@@ -1,0 +1,146 @@
+rules_version = '2';
+
+/**
+ * BẢO MẬT FIRESTORE cho hệ thống giải Pickleball.
+ *
+ * Mô hình quyền:
+ * - PUBLIC (không đăng nhập): CHỈ ĐỌC dữ liệu giải (giải, đội, bảng, trận, sân).
+ *   Nhờ vậy scoreboard/BXH mở trên TV, điện thoại khán giả mà không cần tài khoản.
+ * - REFEREE: chỉ được cập nhật ĐIỂM và TRẠNG THÁI của trận + khoá/mở sân.
+ *   Không tạo/xoá trận, không sửa đội, bảng, cấu hình giải, không mở lại trận.
+ * - ADMIN: toàn quyền trong phạm vi giải.
+ *
+ * Vai trò đọc từ users/{uid}.role. Người dùng tự tạo hồ sơ của mình khi đăng
+ * nhập lần đầu nhưng CHỈ được đặt role = "REFEREE" — không ai tự phong ADMIN.
+ * Admin đầu tiên phải tạo thủ công trong Firebase Console (xem README).
+ */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /* ----------------------------- helpers ------------------------------ */
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function profilePath() {
+      return /databases/$(database)/documents/users/$(request.auth.uid);
+    }
+
+    function hasProfile() {
+      return isSignedIn() && exists(profilePath());
+    }
+
+    function role() {
+      return get(profilePath()).data.role;
+    }
+
+    function isAdmin() {
+      return hasProfile() && role() == 'ADMIN';
+    }
+
+    function isReferee() {
+      return hasProfile() && role() == 'REFEREE';
+    }
+
+    function isScorer() {
+      return isAdmin() || isReferee();
+    }
+
+    function changedKeys() {
+      return request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    /* ------------------------------ users ------------------------------- */
+
+    match /users/{userId} {
+      // Chỉ chính chủ hoặc admin được đọc hồ sơ vai trò.
+      allow read: if isAdmin() || (isSignedIn() && request.auth.uid == userId);
+
+      // Tự tạo hồ sơ khi đăng nhập lần đầu, bắt buộc là REFEREE.
+      allow create: if isAdmin()
+                    || (isSignedIn()
+                        && request.auth.uid == userId
+                        && request.resource.data.role == 'REFEREE');
+
+      // Người dùng chỉ sửa được tên của chính mình; role/courtId do admin quyết định.
+      allow update: if isAdmin()
+                    || (isSignedIn()
+                        && request.auth.uid == userId
+                        && request.resource.data.role == resource.data.role
+                        && changedKeys().hasOnly(['name', 'email', 'updatedAt']));
+
+      allow delete: if isAdmin();
+    }
+
+    /* --------------------------- tournaments ---------------------------- */
+
+    match /tournaments/{tournamentId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+
+      function refereeMatchUpdate() {
+        return
+          // Chỉ được đụng vào các trường liên quan tới điều hành trận.
+          changedKeys().hasOnly([
+            'score1', 'score2', 'status',
+            'winnerId', 'loserId',
+            'startedAt', 'finishedAt',
+            'team1Id', 'team2Id',
+            'courtId', 'updatedAt'
+          ])
+          // Điểm luôn là số nguyên không âm.
+          && request.resource.data.score1 is int
+          && request.resource.data.score2 is int
+          && request.resource.data.score1 >= 0
+          && request.resource.data.score2 >= 0
+          // Không được vượt quá điểm chạm quá xa (chặn nhập bậy 999).
+          && request.resource.data.score1 <= resource.data.targetScore + 30
+          && request.resource.data.score2 <= resource.data.targetScore + 30
+          // Không tự ý đổi thể thức của trận.
+          && request.resource.data.targetScore == resource.data.targetScore
+          && request.resource.data.stage == resource.data.stage
+          && request.resource.data.code == resource.data.code
+          // MỞ LẠI TRẬN là đặc quyền của admin.
+          && !(resource.data.status == 'FINISHED' && request.resource.data.status != 'FINISHED')
+          // Trận đã huỷ thì trọng tài không đụng vào.
+          && resource.data.status != 'CANCELLED';
+      }
+
+      /* Đội & bảng: công khai đọc, chỉ admin ghi. */
+      match /teams/{teamId} {
+        allow read: if true;
+        allow write: if isAdmin();
+      }
+
+      match /groups/{groupId} {
+        allow read: if true;
+        allow write: if isAdmin();
+      }
+
+      /* Sân: trọng tài được đổi khoá sân khi bắt đầu/kết thúc trận. */
+      match /courts/{courtId} {
+        allow read: if true;
+        allow create, delete: if isAdmin();
+        allow update: if isAdmin()
+                      || (isReferee()
+                          && changedKeys().hasOnly(['currentMatchId', 'status', 'updatedAt']));
+      }
+
+      /* Trận đấu: nơi cần chặt nhất. */
+      match /matches/{matchId} {
+        allow read: if true;
+        allow create, delete: if isAdmin();
+
+        allow update: if isAdmin() || (isReferee() && refereeMatchUpdate());
+      }
+
+      /* Nhật ký: người nhập điểm được ghi, chỉ admin đọc, không ai sửa/xoá. */
+      match /auditLogs/{logId} {
+        allow read: if isAdmin();
+        allow create: if isScorer();
+        allow update, delete: if false;
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Pickleball Tournament Manager",
+  "short_name": "Pickleball",
+  "description": "Điều hành giải Pickleball: nhập điểm realtime, bảng xếp hạng, nhánh knockout.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "lang": "vi",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "Bảng điểm", "url": "/scoreboard" },
+    { "name": "Trọng tài", "url": "/referee" },
+    { "name": "Quản trị", "url": "/admin" }
+  ]
+}
